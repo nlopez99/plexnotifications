@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+
+  ngrok:
+    container_name: ngrok
+    image: wernight/ngrok:latest
+    env_file:
+      - .ngrok.env
+    ports:
+      - 4551:4551
+    links:
+      - client
+
+  client:
+    build: .
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
