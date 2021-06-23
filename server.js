@@ -11,6 +11,8 @@ const port = process.env.PORT || 3000;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const Twilio = require('twilio');
 const client = new Twilio(accountSid, authToken);
 
@@ -40,7 +42,6 @@ const sendText = async (message, to) => {
 app.post('/', upload.single('thumb'), async (req, res) => {
     let webhookJson = JSON.parse(req.body.payload);
     if (webhookJson.event == 'library.new') {
-        // need a way to differentiate between tv and movie
 
         // sending text messages for new movies
         if (webhookJSON.Metadata.librarySectionType === 'movie') {
