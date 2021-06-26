@@ -3,20 +3,28 @@ const { logSuccess } = require('../logging/logger');
 const config = require('../config/appConfig');
 
 const {
-    db: { host, databaseName }
+    db: { host, port, databaseName, user, pass }
 } = config;
 
-module.exports = class dataController {
+class dataController {
     constructor() {
-        this.dbURI = `mongodb://${host}/${databaseName}`;
-        this.db = this.connectDB(this.dbURI);
+        this.dbURI = `mongodb://${user}:${pass}@${host}:${port}/${databaseName}`;
+        this.db = this._connectDB(this.dbURI);
     }
 
-    connectDB(dbURI) {
-        mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    _connectDB(dbURI) {
+        console.log(dbURI)
+        mongoose.createConnection(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
         const dbConnection = mongoose.connection;
         dbConnection.on('error', console.error.bind(console, 'MongoDB Connection Error:'));
-        dbConnection.on('open', logSuccess(`Sucessfully Connected to DB: ${dbURI}`));
+        dbConnection.on('open', function() {logSuccess(`Sucessfully Connected to DB: ${dbURI}`)});
         return dbConnection;
     }
 };
+
+let db = new dataController()
+// console.log(db)
+
+
+module.exports = dataController 
+

@@ -8,11 +8,6 @@ const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-const fs = require('fs');
-const membersData = fs.readFileSync('members.json');
-const members = JSON.parse(membersData);
-const phoneNumbers = members.phoneNumbers;
-const myPhoneNumber = process.env.MY_PHONE_NUMBER;
 
 app.post('/', upload.single('thumb'), async (req, res) => {
     let webhookJson = JSON.parse(req.body.payload);
