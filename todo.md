@@ -2,8 +2,9 @@
   * Create Schema for DB [x]
   * Create Tables inside of DB [x]
     * Tables [x]
-      * Subscriber [x]
+      * Account [x]
         * id (Pk)
+        * username
         * Name
         * Phone Number
         * Last Login
@@ -13,9 +14,17 @@
         * title
         * movie_or_title
         * subscriber_id (FK)
+      * Activity [x]
+        * id (PK)
+        * event_type
+        * content_type
+        * content_title
+        * season_tile
+        * episode_title
+        * activity_time
   
 * API Service []
-  * Connect Node App to Database (Sequlize ORM) []
+  * Connect Node App to Database (Sequelize ORM) [x]
   * Twilio Incoming Text Message (POST)
     * Add Content Request Information to DB []
       * Request Data

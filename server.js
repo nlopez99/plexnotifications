@@ -1,16 +1,13 @@
 require('dotenv').config();
 
-const multer = require('multer');
-const upload = multer({ dest: '/tmp/' });
-
 const express = require('express');
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-
 app.post('/', upload.single('thumb'), async (req, res) => {
     let webhookJson = JSON.parse(req.body.payload);
+    console.log(webhookJson);
     if (webhookJson.event == 'library.new') {
         // sending text messages for new movies
         if (webhookJSON.Metadata.librarySectionType === 'movie') {
